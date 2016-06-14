@@ -1,0 +1,8 @@
+GIMP Palette
+Name: raspberrypi.gpl
+Columns: 1
+#
+199	5	61	Raspberry red
+140	192	75	Leaf green
+0	0	0	Black
+255	255	255	White
