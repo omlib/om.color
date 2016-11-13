@@ -1,0 +1,19 @@
+GIMP Palette
+Name: Applell.gpl
+Columns: 1
+#
+0	0	0	AppleII-palette.png #0
+64	75	7	AppleII-palette.png #1
+108	41	64	AppleII-palette.png #2
+64	53	120	AppleII-palette.png #3
+19	87	64	AppleII-palette.png #4
+217	104	15	AppleII-palette.png #5
+38	195	15	AppleII-palette.png #6
+217	60	240	AppleII-palette.png #7
+38	151	240	AppleII-palette.png #8
+128	128	128	AppleII-palette.png #9
+236	168	191	AppleII-palette.png #10
+191	202	135	AppleII-palette.png #11
+147	214	191	AppleII-palette.png #12
+191	180	248	AppleII-palette.png #13
+255	255	255	AppleII-palette.png #14

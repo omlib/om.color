@@ -1,0 +1,8 @@
+GIMP Palette
+Name: GameBoy.gpl
+Columns: 1
+#
+15	56	15	GameBoy-palette.png #0
+48	98	48	GameBoy-palette.png #1
+139	172	15	GameBoy-palette.png #2
+155	188	15	GameBoy-palette.png #3

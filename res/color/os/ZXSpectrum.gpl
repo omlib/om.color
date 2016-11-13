@@ -1,0 +1,19 @@
+GIMP Palette
+Name: ZXSpectrum.gpl
+Columns: 1
+#
+0	0	0	ZXSpectrum-palette.png #0
+192	0	0	ZXSpectrum-palette.png #1
+255	0	0	ZXSpectrum-palette.png #2
+0	192	0	ZXSpectrum-palette.png #3
+0	255	0	ZXSpectrum-palette.png #4
+192	192	0	ZXSpectrum-palette.png #5
+255	255	0	ZXSpectrum-palette.png #6
+0	0	192	ZXSpectrum-palette.png #7
+0	0	255	ZXSpectrum-palette.png #8
+192	0	192	ZXSpectrum-palette.png #9
+255	0	255	ZXSpectrum-palette.png #10
+0	192	192	ZXSpectrum-palette.png #11
+0	255	255	ZXSpectrum-palette.png #12
+192	192	192	ZXSpectrum-palette.png #13
+255	255	255	ZXSpectrum-palette.png #14

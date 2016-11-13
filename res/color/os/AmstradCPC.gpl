@@ -1,0 +1,31 @@
+GIMP Palette
+Name: AmstradCPC.gpl
+Columns: 1
+#
+0	0	0	AmstradCPC-palette.png #0
+128	0	0	AmstradCPC-palette.png #1
+255	0	0	AmstradCPC-palette.png #2
+0	128	0	AmstradCPC-palette.png #3
+0	255	0	AmstradCPC-palette.png #4
+128	128	0	AmstradCPC-palette.png #5
+255	128	0	AmstradCPC-palette.png #6
+128	255	0	AmstradCPC-palette.png #7
+255	255	0	AmstradCPC-palette.png #8
+0	0	128	AmstradCPC-palette.png #9
+0	0	255	AmstradCPC-palette.png #10
+128	0	128	AmstradCPC-palette.png #11
+255	0	128	AmstradCPC-palette.png #12
+128	0	255	AmstradCPC-palette.png #13
+255	0	255	AmstradCPC-palette.png #14
+0	128	128	AmstradCPC-palette.png #15
+0	255	128	AmstradCPC-palette.png #16
+0	128	255	AmstradCPC-palette.png #17
+0	255	255	AmstradCPC-palette.png #18
+128	128	128	AmstradCPC-palette.png #19
+255	128	128	AmstradCPC-palette.png #20
+128	255	128	AmstradCPC-palette.png #21
+255	255	128	AmstradCPC-palette.png #22
+128	128	255	AmstradCPC-palette.png #23
+255	128	255	AmstradCPC-palette.png #24
+128	255	255	AmstradCPC-palette.png #25
+255	255	255	AmstradCPC-palette.png #26

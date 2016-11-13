@@ -1,0 +1,20 @@
+GIMP Palette
+Name: CGA.gpl
+Columns: 1
+#
+0	0	0	CGA-palette.png #0
+85	85	85	CGA-palette.png #1
+170	0	0	CGA-palette.png #2
+170	85	0	CGA-palette.png #3
+255	85	85	CGA-palette.png #4
+0	170	0	CGA-palette.png #5
+85	255	85	CGA-palette.png #6
+255	255	85	CGA-palette.png #7
+0	0	170	CGA-palette.png #8
+85	85	255	CGA-palette.png #9
+170	0	170	CGA-palette.png #10
+255	85	255	CGA-palette.png #11
+0	170	170	CGA-palette.png #12
+85	255	255	CGA-palette.png #13
+170	170	170	CGA-palette.png #14
+255	255	255	CGA-palette.png #15

@@ -1,0 +1,20 @@
+GIMP Palette
+Name: C64.gpl
+Columns: 1
+#
+0	0	0	C64-palette.png #0
+87	66	0	C64-palette.png #1
+80	80	80	C64-palette.png #2
+120	120	120	C64-palette.png #3
+136	57	50	C64-palette.png #4
+139	84	41	C64-palette.png #5
+184	105	98	C64-palette.png #6
+85	160	73	C64-palette.png #7
+191	206	114	C64-palette.png #8
+64	49	141	C64-palette.png #9
+120	105	196	C64-palette.png #10
+139	63	150	C64-palette.png #11
+103	182	189	C64-palette.png #12
+159	159	159	C64-palette.png #13
+148	224	137	C64-palette.png #14
+255	255	255	C64-palette.png #15

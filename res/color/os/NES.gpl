@@ -1,0 +1,56 @@
+GIMP Palette
+Name: NES.gpl
+Columns: 1
+#
+0	0	0	NESFull-palette.png #0
+8	8	8	NESFull-palette.png #1
+80	48	0	NESFull-palette.png #2
+0	88	0	NESFull-palette.png #3
+0	104	0	NESFull-palette.png #4
+0	120	0	NESFull-palette.png #5
+0	64	88	NESFull-palette.png #6
+124	124	124	NESFull-palette.png #7
+136	20	0	NESFull-palette.png #8
+168	16	0	NESFull-palette.png #9
+168	0	32	NESFull-palette.png #10
+172	124	0	NESFull-palette.png #11
+228	92	16	NESFull-palette.png #12
+228	0	88	NESFull-palette.png #13
+248	120	88	NESFull-palette.png #14
+0	168	0	NESFull-palette.png #15
+0	184	0	NESFull-palette.png #16
+0	168	68	NESFull-palette.png #17
+88	216	84	NESFull-palette.png #18
+248	184	0	NESFull-palette.png #19
+184	248	24	NESFull-palette.png #20
+252	160	68	NESFull-palette.png #21
+248	216	120	NESFull-palette.png #22
+216	248	120	NESFull-palette.png #23
+0	0	188	NESFull-palette.png #24
+68	40	188	NESFull-palette.png #25
+0	0	252	NESFull-palette.png #26
+0	88	248	NESFull-palette.png #27
+0	120	248	NESFull-palette.png #28
+104	68	252	NESFull-palette.png #29
+148	0	132	NESFull-palette.png #30
+248	88	152	NESFull-palette.png #31
+216	0	204	NESFull-palette.png #32
+152	120	248	NESFull-palette.png #33
+248	120	248	NESFull-palette.png #34
+0	136	136	NESFull-palette.png #35
+88	248	152	NESFull-palette.png #36
+60	188	252	NESFull-palette.png #37
+104	136	252	NESFull-palette.png #38
+0	232	216	NESFull-palette.png #39
+0	252	252	NESFull-palette.png #40
+188	188	188	NESFull-palette.png #41
+184	248	184	NESFull-palette.png #42
+240	208	176	NESFull-palette.png #43
+252	224	168	NESFull-palette.png #44
+184	184	248	NESFull-palette.png #45
+248	164	192	NESFull-palette.png #46
+216	184	248	NESFull-palette.png #47
+248	184	248	NESFull-palette.png #48
+184	248	216	NESFull-palette.png #49
+164	228	252	NESFull-palette.png #50
+252	252	252	NESFull-palette.png #51
