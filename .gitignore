@@ -1,4 +1,5 @@
 _*
-example/*.js*
-test/build/
-test/unit*
+doc/
+examples/**.js*
+example/**.js*
+test/bin/

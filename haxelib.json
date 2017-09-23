@@ -1,7 +1,7 @@
 {
     "name": "om.color",
-    "version": "0.1.0",
-    "description": "Om color library",
+    "version": "0.0.0",
+    "description": "Colors",
     "tags": ["om","color"],
     "url": "https://github.com/tong/om.color",
     "license": "OM",
@@ -9,6 +9,7 @@
     "releasenote": "See CHANGELOG.md",
     "classPath" : "src/",
     "dependencies": {
-        "om.format":""
+        "om.core":"",
+        "hsluv": ""
     }
 }

@@ -1,0 +1,14 @@
+--no-output
+-lib om.color
+om.color.palette.HSLUV
+-dce no
+-D doc-gen
+--each
+
+--next
+-js _
+-xml doc/js.xml
+
+--next
+-neko _
+-xml doc/neko.xml

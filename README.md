@@ -1,1 +1,4 @@
-# OM|COLOR
+
+# OM.COLOR
+
+> Color tools.
