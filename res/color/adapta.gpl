@@ -2,27 +2,26 @@ GIMP Palette
 Name: adapta.gpl
 Columns: 1
 #
-38	50	56	text_color
-42	55	62	tooltip_bg_color
-69	90	100	
-0	188	212	selected_bg_color
-15	160	180	
-69	90	100	
-236	239	241	tooltip_fg_color
-250	251	252	bg_color
-255	255	255	base_color
-255	255	255	selected_fg_color
-29	233	182	accent_color
-3	169	244	link_color
+0	0	0	inverted_accent_label_color
+2	2	3	solid_dark_borders_color
+19	25	28	panel_bg_color
+34	45	50	inverted_dark_color
+38	50	56	fixed-fg_color
+40	53	59	inverted_base_color
+46	60	67	inverted_light_color
 156	39	176	link_visited_color
-255	152	0	warning_color
-244	67	54	error_color
 0	230	118	success_color
-255	82	82	suggested_color
-255	82	82	destructive_color
-128	222	234	selection_color
-0	229	255	info_bg_color
+3	169	244	link_color
+76	175	80	solid_green
 255	234	0	question_bg_color
 255	145	0	warning_bg_color
-255	23	68	error_bg_color
-19	25	28	panel_bg_color
+255	152	0	warning_color
+29	233	182	info_bg_color
+120	144	156	placeholder_text_color
+33	150	243	solid_blue
+255	23	68	error_bg
+244	67	54	error
+255	235	59	solid_yellow
+207	216	220	inverted_fg_color
+238	238	239	panel_dynamic_fg_color
+255	255	255	base
