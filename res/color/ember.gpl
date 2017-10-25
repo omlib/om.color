@@ -2,12 +2,19 @@ GIMP Palette
 Name: ember.gpl
 Columns: 1
 #
-29	29	29	Nero ~
-34	34	34	Nero ~
-69	68	64	Tuatara ~
-89	155	143	Lochinvar ~
-250	2	2	Red ~
-230	64	74	Crimson ~
-130	217	196	Puerto rico ~
-217	215	203	Milk white ~
+28	29	28	Corduroy ~
+27	31	32	Nero ~
+38	25	24	Jarrah ~
+41	40	38	Crowshead ~
+87	28	30	Venetian red ~
+68	67	61	Tuatara ~
+70	69	65	Tuatara ~
+103	108	102	Storm dust ~
+191	46	54	Firebrick ~
+114	133	123	Blue smoke ~
+94	161	148	Lochinvar ~
+227	67	76	Firebrick ~
+178	184	175	Pumice ~
+216	215	204	White pointer ~
 229	226	219	Wan white ~
+238	231	228	Hint of red ~
