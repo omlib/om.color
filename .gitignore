@@ -1,5 +1,4 @@
-_*
 doc/
 examples/**.js*
-example/**.js*
 test/bin/
+run.n

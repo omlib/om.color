@@ -1,14 +1,56 @@
 --no-output
 -lib om.color
+om.color.GimpPalette
 om.color.palette.HSLUV
+--macro include('om.color.space')
 -dce no
 -D doc-gen
 --each
+
+--next
+-cpp _
+-xml doc/cpp.xml
+
+--next
+-cs _
+-xml doc/cs.xml
+
+--next
+-hl _
+-xml doc/hl.xml
+
+--next
+--interp
+-xml doc/interp.xml
+
+--next
+-java _
+-xml doc/java.xml
 
 --next
 -js _
 -xml doc/js.xml
 
 --next
+-lua _
+-xml doc/lua.xml
+
+--next
+-js _
+-xml doc/node.xml
+-lib hxnodejs
+
+--next
 -neko _
 -xml doc/neko.xml
+
+--next
+-php _
+-xml doc/php.xml
+
+--next
+-python _
+-xml doc/python.xml
+
+#--next
+#-xml doc/cross.xml
