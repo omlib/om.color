@@ -58,6 +58,12 @@ abstract RGB(Int) from Int from UInt {
 	}
 	*/
 
+	public inline function darker( t : Float ) : RGB
+    	return toRGBX().darker(t).toRGB();
+
+	public inline function lighter( t : Float ) : RGB
+	   	return toRGBX().lighter(t).toRGB();
+
 	public inline function interpolate( other : RGB, t : Float ) : RGB
     	return toRGBX().interpolate( other.toRGBX(), t ).toRGB();
 
@@ -66,6 +72,9 @@ abstract RGB(Int) from Int from UInt {
 
 	public inline function toCSS3() : String
 		return 'rgb($r,$g,$b)';
+
+	@:to public inline function toGrey() : Grey
+		return toRGBX().toGrey();
 
 	public inline function toHex( prefix = '#' ) : String
 		return '$prefix${r.hex(2)}${g.hex(2)}${b.hex(2)}';

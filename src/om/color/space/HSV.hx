@@ -1,5 +1,7 @@
 package om.color.space;
 
+using om.Math;
+
 /**
     Hue-Saturation-Value.
 
@@ -15,6 +17,19 @@ abstract HSV(Array<Float>) {
     @:from public inline static function fromFloats( a : Array<Float> ) : HSV
        return HSV.create( a[0], a[1], a[2] );
 
+    @:from public static function fromString( s : String ) : HSV {
+        var info = ColorParser.parseColor( s );
+        if( info  == null )
+            return null;
+        return try switch info.name {
+            case 'hsv':
+                new HSV( ColorParser.getFloatChannels( info.channels, 3, [DegreeMode,NaturalMode,NaturalMode] ) );
+            case _:
+                null;
+        } catch(e:Dynamic)
+            null;
+    }
+
     public var h(get,never) : Float;
     inline function get_h() : Float return this[0];
 
@@ -25,6 +40,19 @@ abstract HSV(Array<Float>) {
     inline function get_v() : Float return this[2];
 
     inline function new( a : Array<Float> ) this = a;
+
+    public function interpolate( other: HSV, t: Float ) : HSV
+        return new HSV([
+            t.interpolateAngle( h, other.h ),
+            t.interpolate( s, other.s ),
+            t.interpolate( v, other.v )
+        ]);
+
+    @:to public inline function toGrey() : Grey
+        return toRGBX().toGrey();
+
+    @:to public inline function toHSL() : HSL
+        return toRGBX().toHSL();
 
     @:to public inline function toRGB() : RGB
         return toRGBX().toRGB();

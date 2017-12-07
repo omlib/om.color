@@ -5,7 +5,7 @@ using om.Math;
 @:access(om.color.space.HSV)
 @:access(om.color.space.RGBXA)
 abstract RGBX(Array<Float>) {
-    
+
     public static inline function create( r : Float, g : Float, b : Float ) : RGBX
         return new RGBX( [r,g,b] );
 
@@ -31,6 +31,23 @@ abstract RGBX(Array<Float>) {
 
     inline function new( a : Array<Float>) this = a;
 
+    public function inSpace() : Bool
+        return r >= 0 && r <= 1 && g >= 0 && g <= 1 && b >= 0 && b <= 1;
+
+    public function darker( t : Float ) : RGBX
+        return new RGBX([
+            t.interpolate( r, 0 ),
+            t.interpolate( g, 0 ),
+            t.interpolate( b, 0 ),
+        ]);
+
+    public function lighter( t : Float ) : RGBX
+        return new RGBX([
+            t.interpolate( r, 1 ),
+            t.interpolate( g, 1 ),
+            t.interpolate( b, 1 ),
+        ]);
+
     public inline function interpolate( other : RGBX, t : Float ) : RGBX
         return new RGBX([
             t.interpolate( r, other.r ),
@@ -40,6 +57,12 @@ abstract RGBX(Array<Float>) {
 
     @:to public inline function toGrey() : Grey
         return new Grey( r * 0.2126 + g * 0.7152 + b * 0.0722 );
+
+    public inline function toPerceivedGrey() : Grey
+        return new Grey( r * .299 + g * .587 + b * .114 );
+
+    public inline function toPerceivedAccurateGrey() : Grey
+        return new Grey( Math.pow( r, 2 ) * .241 + Math.pow( g, 2 ) * .691 + Math.pow( b, 2 ) * .068 );
 
     @:to public function toHSL() : HSL {
         var min = r.min( g ).min( b );
