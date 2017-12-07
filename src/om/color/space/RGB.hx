@@ -1,67 +1,45 @@
 package om.color.space;
 
 //import om.util.ColorParser;
-import om.util.ColorUtil;
 
-using om.util.FloatUtil;
-using om.util.HexUtil;
+using om.ColorTools;
+using om.StringTools;
 
 /**
 	Additive color model in which red, green, and blue light are added together in various ways to reproduce a broad array of colors.
 */
-abstract RGB(Int) from Int to Int {
+abstract RGB(Int) from Int from UInt {
 
-	//public var numchannels(get,never) = 3;
+	public static inline function create( r : Int, g : Int, b : Int ) : RGB
+		return new RGB( ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0) );
+
+	public static inline function createf( r : Float, g : Float, b : Float ) : RGB
+		return create( Math.round( r * 255 ), Math.round( g * 255 ), Math.round( b * 255 ) );
+
+	@:from static inline function fromArray( a : Array<Int> ) : RGB
+		return (a[0]<<16) | (a[1]<<8) | a[2];
+		//return new RGB( ColorUtil.rgbToInt( a[0], a[1], a[2] ) );
+
+	@:from static inline function fromString( s : String ) : Null<RGB>
+		return new RGB( Std.parseInt( '0x' + s.substr(1) ) );
 
 	public var r(get,never) : Int;
+	inline function get_r() return this >> 16 & 0xFF;
+
 	public var g(get,never) : Int;
+	inline function get_g() return this >> 8 & 0xFF;
+
 	public var b(get,never) : Int;
+	inline function get_b() return this & 0xFF;
 
 	@:noCompletion public inline function new( i : Int ) this = i;
 
-	inline function get_r() return this >> 16 & 0xFF;
-	inline function get_g() return this >> 8 & 0xFF;
-	inline function get_b() return this & 0xFF;
-
+	/*
 	@:op(A==B) public function equals( other : RGB ) : Bool
 		return r == other.r && g == other.g && b == other.b;
-
-	@:to public inline function toArray() : Array<Int>
-		return [r,g,b];
-
-	@:to public inline function toString() : String {
-		/*
-		#if js
-		return '#'+untyped this.toString(16);
-		#else
-		#end
-		*/
-		return toHex();
-	}
-
-	public function toHex( prefix = "#" ) : String {
-		return '$prefix${r.hex(2)}${g.hex(2)}${b.hex(2)}';
-	}
-
-	/*
-	public inline function toCSS3() : String
-		return 'rgb($r,$g,$b)';
 	*/
 
-	public function toCSS3( formatWhitespace = false ) : String {
-		return if( formatWhitespace ) {
-			var s = 'rgb(';
-			var f = function(v:Int) : String {
-				var s = Std.string( v );
-				for( i in 0...(3-s.length) ) s = ' '+s;
-				return s;
-			}
-			return s + [f(r),f(g),f(b)].join(',') + ')';
-		} else 'rgb($r,$g,$b)';
-	}
-
-	@:arrayAccess
-	public inline function getPart( i : Int ) : Int {
+	@:arrayAccess public inline function get( i : Int ) : Int {
 		return switch i {
 			case 0: r;
 			case 1: g;
@@ -70,6 +48,64 @@ abstract RGB(Int) from Int to Int {
 		}
 	}
 
+	/*
+	@:arrayAccess public inline function set( i : Int, v : Int ) : Int {
+		if( i >= 3 )
+			throw 'Out of bounds';
+		//&var a = [];
+		//&for( j in 0...3 ) a[j] = (j == i) ? v : this[j];
+		//&return fromArray( a );
+	}
+	*/
+
+	public inline function interpolate( other : RGB, t : Float ) : RGB
+    	return toRGBX().interpolate( other.toRGBX(), t ).toRGB();
+
+	@:to public inline function toArray() : Array<Int>
+		return [r,g,b];
+
+	public inline function toCSS3() : String
+		return 'rgb($r,$g,$b)';
+
+	public inline function toHex( prefix = '#' ) : String
+		return '$prefix${r.hex(2)}${g.hex(2)}${b.hex(2)}';
+
+	@:to public inline function toHSL() : HSL
+		return toRGBX().toHSL();
+
+	@:to public inline function toHSV() : HSV
+		return toRGBX().toHSV();
+
+	@:to public inline function toRGBX() : RGBX
+	    return RGBX.fromInts( [r,g,b] );
+
+	@:to public inline function toRGBA() : RGBA
+		return withAlpha( 255 );
+
+	@:to public inline function toRGBXA() : RGBXA
+		return toRGBA().toRGBXA();
+
+	@:to public inline function toString() : String
+		return toHex();
+
+	public inline function withAlpha( v : Int ) : RGBA
+		return RGBA.fromInts( [ r, g, b, v ] );
+
+	/*
+	public static function wheel( pos : Int ) : RGB {
+		pos = 255 - pos;
+		if( pos < 85 )
+			return [255 - pos * 3, 0, pos * 3 ];
+		if( pos < 170 ) {
+			pos -= 85;
+			return [0, pos * 3, 255 - pos * 3];
+		}
+		pos -= 170;
+		return [pos * 3, 255 - pos * 3, 0];
+	}
+	*/
+
+	/*
 	public function interpolate( target : Int, ratio = 0.5 ) : RGB {
 		var _target = new RGB( target );
 		var _r = r;
@@ -110,8 +146,8 @@ abstract RGB(Int) from Int to Int {
 		return new HSL([h,s,l]);
 	}
 
-	@:from static inline function fromInt( i : Int )
-		return new RGB(i);
+	//@:from static inline function fromInt( i : Int )
+		//return new RGB(i);
 
 	@:from static inline function fromString( s : String ) : Null<RGB> {
 		/*
@@ -122,14 +158,9 @@ abstract RGB(Int) from Int to Int {
 			return null;
 		trace(info);
 		return null;
-		*/
+		* /
 		return new RGB( ColorUtil.hexToInt( s ) );
 	}
 
-	@:from static inline function fromArray( a : Array<Int> ) : RGB
-		return new RGB( ColorUtil.rgbToInt( a[0], a[1], a[2] ) );
-
-	public static inline function create( r : Int, g : Int, b : Int ) : RGB
-		return new RGB(((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0));
-
+		*/
 }
