@@ -101,12 +101,12 @@ class ColorParser {
             if( s.substr( 0, 1 ) == "#" ) {
                 if( s.length == 4 ) // needs dup
                     s = s.charAt(1) + s.charAt(1) + s.charAt(2) + s.charAt(2) + s.charAt(3) + s.charAt(3);
-                else if(s.length == 5)// needs dup
+                else if( s.length == 5 )// needs dup
                     s = s.charAt(1) + s.charAt(1) + s.charAt(2) + s.charAt(2) + s.charAt(3) + s.charAt(3) + s.charAt(4) + s.charAt(4);
                 else
                     s = s.substr(1);
             } else if( s.substr( 0, 2 ) == "0x" )
-                s = s.substr(2);
+                s = s.substr( 2 );
             else
                 return null;
         }
@@ -116,7 +116,7 @@ class ColorParser {
             s = s.substr( 2 );
         }
         if( channels.length == 4 )
-            return new ColorInfo( "hexa", channels.slice(1).concat([channels[0]] ) );
+            return new ColorInfo( "hexa", channels.slice(1).concat( [channels[0]] ) );
         else
             return new ColorInfo( "rgb", channels );
     }
@@ -129,13 +129,13 @@ class ColorParser {
 
     public static function getFloatChannel( channel : ChannelInfo, mode: Int2FloatMode ) : Float
         return switch [channel,mode] {
-        case [CIFloat(v) , _]: v;
-        case [CIInt(v) , HexMode]: v / 255;
-        case [CIInt(v) , DegreeMode]: v;
-        case [CIInt(v) , NaturalMode]: v;
-        case [CIDegree(v) , _]: v;
-        case [CIPercent(v) , DegreeMode]: v / 100 * 360;
-        case [CIPercent(v) , _]: v / 100;
+        case [CIFloat(v), _]: v;
+        case [CIInt(v), HexMode]: v / 255;
+        case [CIInt(v), DegreeMode]: v;
+        case [CIInt(v), NaturalMode]: v;
+        case [CIDegree(v), _]: v;
+        case [CIPercent(v), DegreeMode]: v / 100 * 360;
+        case [CIPercent(v), _]: v / 100;
         default: throw 'can\'t get a float value from $channel';
         };
 

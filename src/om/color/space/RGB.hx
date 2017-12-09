@@ -1,7 +1,5 @@
 package om.color.space;
 
-//import om.util.ColorParser;
-
 using om.ColorTools;
 using om.StringTools;
 
@@ -18,10 +16,10 @@ abstract RGB(Int) from Int from UInt {
 
 	@:from static inline function fromArray( a : Array<Int> ) : RGB
 		return (a[0]<<16) | (a[1]<<8) | a[2];
-		//return new RGB( ColorUtil.rgbToInt( a[0], a[1], a[2] ) );
 
-	@:from static inline function fromString( s : String ) : Null<RGB>
+	@:from static inline function fromString( s : String ) : Null<RGB> {
 		return new RGB( Std.parseInt( '0x' + s.substr(1) ) );
+	}
 
 	public var r(get,never) : Int;
 	inline function get_r() return this >> 16 & 0xFF;
@@ -35,11 +33,15 @@ abstract RGB(Int) from Int from UInt {
 	@:noCompletion public inline function new( i : Int ) this = i;
 
 	/*
+	public inline function set( r : Int, g : Int , b : Int )
+		this = RGB.create( r, g, b ); //((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0);
+*/
+	/*
 	@:op(A==B) public function equals( other : RGB ) : Bool
 		return r == other.r && g == other.g && b == other.b;
 	*/
 
-	@:arrayAccess public inline function get( i : Int ) : Int {
+	@:arrayAccess public function get( i : Int ) : Int {
 		return switch i {
 			case 0: r;
 			case 1: g;
@@ -47,6 +49,26 @@ abstract RGB(Int) from Int from UInt {
 			default: throw 'Out of bounds';
 		}
 	}
+
+	@:arrayAccess public function getChannel( name : String ) : Int {
+		return switch name.toLowerCase() {
+			case 'red','r': r;
+			case 'green','g': g;
+			case 'blue','b': b;
+			default: throw 'Out of bounds';
+		}
+	}
+
+	/*
+	@:arrayAccess public function setChannel( name : String, v : Int ) {
+		switch name.toLowerCase() {
+			case 'red','r': set( v, g, b );
+			case 'green','g': set( r, v, b );
+			case 'blue','b': set( r, g, v );
+			default: throw 'Out of bounds';
+		}
+	}
+	*/
 
 	/*
 	@:arrayAccess public inline function set( i : Int, v : Int ) : Int {

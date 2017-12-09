@@ -52,8 +52,4 @@ abstract Grey(Float) from Float to Float {
 	@:to public inline function toString() : String
        return 'grey(${(${this}*100)}%)';
 
-	//@:to public inline function toXYZ() : XYZ
-    //   return toRgbx().toXYZ();
-
-
 }

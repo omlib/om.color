@@ -55,8 +55,20 @@ abstract RGBX(Array<Float>) {
             t.interpolate( b, other.b )
         ]);
 
+    public inline function min( other : RGBX ) : RGBX
+        return create( r.min( other.r ), g.min( other.g ), b.min( other.b ) );
+
+    public inline function max( other : RGBX ) : RGBX
+        return create( r.max( other.r ), g.max( other.g ), b.max( other.b ) );
+
+    //public inline function normalize() : RGBX
+    //    return new RGBX([r.normalize(),g.normalize(),b.normalize()]);
+
     @:to public inline function toGrey() : Grey
         return new Grey( r * 0.2126 + g * 0.7152 + b * 0.0722 );
+
+    //public inline function toHex( prefix = "#" ) : String
+    //    return '$prefix${r.hex(2)}${g.hex(2)}${b.hex(2)}';
 
     public inline function toPerceivedGrey() : Grey
         return new Grey( r * .299 + g * .587 + b * .114 );
@@ -104,7 +116,7 @@ abstract RGBX(Array<Float>) {
         }
         if( r == max )
             h = (g - b) / delta;
-        else if (g == max)
+        else if( g == max )
             h = 2 + (b - r) / delta;
         else
             h = 4 + (r - g) / delta;
@@ -118,6 +130,9 @@ abstract RGBX(Array<Float>) {
 
     @:to public inline function toRGBXA(): RGBXA
         return withAlpha( 1.0 );
+
+    @:to public inline function toString() : String
+        return 'rgb(${(r*100)}%,${(g*100)}%,${(b*100)}%)';
 
     public function withAlpha( a : Float )
         return new RGBXA( this.concat( [a] ) );
