@@ -139,4 +139,18 @@ class ColorParser {
         default: throw 'can\'t get a float value from $channel';
         };
 
+    public static function getInt8Channels( channels : Array<ChannelInfo>, length : Int ) {
+        if( length != channels.length )
+            throw 'invalid number of channels, expected $length but it is ${channels.length}';
+        return channels.map( getInt8Channel );
+    }
+
+    public static function getInt8Channel( channel : ChannelInfo ) {
+        return switch channel {
+            case CIInt(v) if( v >= 0 && v <= 255 ): v;
+            case CIPercent(v): Math.round( 255 * v / 100 );
+            default : throw "unable to extract a valid int8 value";
+        };
+    }
+
 }

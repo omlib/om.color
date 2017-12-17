@@ -1,12 +1,13 @@
 package om.color.space;
 
-using om.ColorTools;
+import om.error.OutOfBounds;
+
 using om.StringTools;
 
 /**
-	Additive color model in which red, green, and blue light are added together in various ways to reproduce a broad array of colors.
-*/
-abstract RGB(Int) from Int from UInt {
+	Additive color model.
+**/
+abstract RGB(Int) from Int to Int {
 
 	public static inline function create( r : Int, g : Int, b : Int ) : RGB
 		return new RGB( ((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0) );
@@ -14,11 +15,21 @@ abstract RGB(Int) from Int from UInt {
 	public static inline function createf( r : Float, g : Float, b : Float ) : RGB
 		return create( Math.round( r * 255 ), Math.round( g * 255 ), Math.round( b * 255 ) );
 
-	@:from static inline function fromArray( a : Array<Int> ) : RGB
-		return (a[0]<<16) | (a[1]<<8) | a[2];
+	//@:from static inline function fromArray( a : Array<Int> ) : RGB
+	//	return (a[0]<<16) | (a[1]<<8) | a[2];
 
-	@:from static inline function fromString( s : String ) : Null<RGB> {
-		return new RGB( Std.parseInt( '0x' + s.substr(1) ) );
+	@:from public static inline function fromInts( a : Array<Int> ) : RGB
+		return create( a[0], a[1], a[2] );
+
+	@:from public static inline function fromString( s : String ) : Null<RGB> {
+		var info = ColorParser.parseHex( s );
+		if( info == null ) info = ColorParser.parseColor( s );
+		if( info == null )
+			return  null;
+		return try switch info.name {
+			case 'rgb': RGB.fromInts( ColorParser.getInt8Channels( info.channels, 3 ) );
+			case _: null;
+		} catch(e:Dynamic) null;
 	}
 
 	public var r(get,never) : Int;
@@ -32,22 +43,30 @@ abstract RGB(Int) from Int from UInt {
 
 	@:noCompletion public inline function new( i : Int ) this = i;
 
-	/*
-	public inline function set( r : Int, g : Int , b : Int )
-		this = RGB.create( r, g, b ); //((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0);
-*/
+	//public inline function set( r : Int, g : Int , b : Int )
+		//this = RGB.create( r, g, b ); //((r & 0xFF) << 16) | ((g & 0xFF) << 8) | ((b & 0xFF) << 0);
+
 	/*
 	@:op(A==B) public function equals( other : RGB ) : Bool
 		return r == other.r && g == other.g && b == other.b;
 	*/
 
-	@:arrayAccess public function get( i : Int ) : Int {
+	@:arrayAccess public inline function get( i : Int ) : Int {
 		return switch i {
 			case 0: r;
 			case 1: g;
 			case 2: b;
-			default: throw 'Out of bounds';
+			default: throw new OutOfBounds( i );
 		}
+	}
+
+	@:arrayAccess public inline function set( i : Int, v : Int ) : RGB {
+		return RGB.fromInts( switch i {
+			case 0: [v,g,b];
+			case 1: [r,v,b];
+			case 2: [r,g,v];
+			default: throw new OutOfBounds( i );
+		} );
 	}
 
 	@:arrayAccess public function getChannel( name : String ) : Int {
@@ -55,30 +74,18 @@ abstract RGB(Int) from Int from UInt {
 			case 'red','r': r;
 			case 'green','g': g;
 			case 'blue','b': b;
-			default: throw 'Out of bounds';
+			default: throw new OutOfBounds( name );
 		}
 	}
 
-	/*
-	@:arrayAccess public function setChannel( name : String, v : Int ) {
-		switch name.toLowerCase() {
-			case 'red','r': set( v, g, b );
-			case 'green','g': set( r, v, b );
-			case 'blue','b': set( r, g, v );
-			default: throw 'Out of bounds';
-		}
+	@:arrayAccess public function setChannel( name : String, v : Int ) : RGB {
+		return set( switch name.toLowerCase() {
+			case 'red','r': 0;
+			case 'green','g': 1;
+			case 'blue','b': 2;
+			default: throw new OutOfBounds( name );
+		}, v );
 	}
-	*/
-
-	/*
-	@:arrayAccess public inline function set( i : Int, v : Int ) : Int {
-		if( i >= 3 )
-			throw 'Out of bounds';
-		//&var a = [];
-		//&for( j in 0...3 ) a[j] = (j == i) ? v : this[j];
-		//&return fromArray( a );
-	}
-	*/
 
 	public inline function darker( t : Float ) : RGB
     	return toRGBX().darker(t).toRGB();
@@ -104,6 +111,9 @@ abstract RGB(Int) from Int from UInt {
 	@:to public inline function toHSL() : HSL
 		return toRGBX().toHSL();
 
+	@:to public inline function toHSLUV() : HSLUV
+		return toRGBX().toHSLUV();
+
 	@:to public inline function toHSV() : HSV
 		return toRGBX().toHSV();
 
@@ -119,79 +129,16 @@ abstract RGB(Int) from Int from UInt {
 	@:to public inline function toString() : String
 		return toHex();
 
+	public inline function withRed( v : Int ) : RGB
+		return RGB.fromInts( [ v, g, b ] );
+
+	public inline function withGreen( v : Int ) : RGB
+		return RGB.fromInts( [ r, v, b ] );
+
+	public inline function withBlue( v : Int ) : RGB
+		return RGB.fromInts( [ r, g, v ] );
+
 	public inline function withAlpha( v : Int ) : RGBA
 		return RGBA.fromInts( [ r, g, b, v ] );
 
-	/*
-	public static function wheel( pos : Int ) : RGB {
-		pos = 255 - pos;
-		if( pos < 85 )
-			return [255 - pos * 3, 0, pos * 3 ];
-		if( pos < 170 ) {
-			pos -= 85;
-			return [0, pos * 3, 255 - pos * 3];
-		}
-		pos -= 170;
-		return [pos * 3, 255 - pos * 3, 0];
-	}
-	*/
-
-	/*
-	public function interpolate( target : Int, ratio = 0.5 ) : RGB {
-		var _target = new RGB( target );
-		var _r = r;
-		var _g = g;
-		var _b = b;
-		return ColorUtil.rgbToInt(
-			Std.int( _r + (_target.r - _r) * ratio ),
-			Std.int( _g + (_target.g - _g) * ratio ),
-			Std.int( _b + (_target.b - _b) * ratio )
-		);
-	}
-
-	@:to public function toHSL() : HSL {
-		var red = r;
-		var green = g;
-		var blue = b;
-    	var min = red.min( green ).min( blue );
-        var max = red.max( green ).max( blue );
-        var delta = max - min;
-        var h, s;
-        var l = (max + min) / 2;
-		//#if php
-    	//if( delta.nearZero() )
-		//#else
-    	if( delta == 0.0 )
-		//#end
-      		s = h = 0.0;
-    	else {
-			s = l < 0.5 ? delta / (max + min) : delta / (2 - max - min);
-    		if( red == max)
-        		h = (green - blue) / delta + (green < blue ? 6 : 0);
-			else if (green == max)
-				h = (blue - red) / delta + 2;
-			else
-        		h = (red - green) / delta + 4;
-			h *= 60;
-    	}
-		return new HSL([h,s,l]);
-	}
-
-	//@:from static inline function fromInt( i : Int )
-		//return new RGB(i);
-
-	@:from static inline function fromString( s : String ) : Null<RGB> {
-		/*
-		var info = ColorParser.parseHex( color );
-		if( info == null )
-			info = ColorParser.parseColor(color);
-		if( info == null )
-			return null;
-		trace(info);
-		return null;
-		* /
-		return new RGB( ColorUtil.hexToInt( s ) );
-	}
-
-		*/
 }

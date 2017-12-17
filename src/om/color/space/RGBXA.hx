@@ -6,12 +6,28 @@ abstract RGBXA(Array<Float>) {
     public static inline function create( r : Float, g : Float, b : Float, a : Float ) : RGBXA
         return new RGBXA( [r,g,b,a] );
 
+    @:from public static inline function fromFloats( a: Array<Float> ) : RGBXA
+        return create( a[0], a[1], a[2], a[3] );
+
     @:from public static inline function fromInts( a: Array<Int> ) : RGBXA
         return RGBXA.create( a[0]/255, a[1]/255, a[2]/255, a[3]/255 );
 
     @:from public static function fromInt( i : Int ) : RGBXA {
         var c : RGBA = i;
         return create( c.r/255, c.g/255, c.b/255, c.a/255 );
+    }
+
+    @:from public static inline function fromString( s : String ) : Null<RGBXA> {
+        var info = ColorParser.parseHex( s );
+        if( info == null ) info = ColorParser.parseColor( s );
+        if( info == null )
+            return  null;
+        return try switch info.name {
+            case 'rgb': RGBX.fromFloats( ColorParser.getFloatChannels( info.channels, 3, [HexMode,HexMode,HexMode] ) ).toRGBXA();
+            case 'rgba': RGBXA.fromFloats( ColorParser.getFloatChannels( info.channels, 4, [HexMode,HexMode,HexMode,NaturalMode] ) );
+            case 'hexa': RGBXA.fromFloats( ColorParser.getFloatChannels( info.channels, 4, [HexMode,HexMode,HexMode,HexMode] ) );
+            case _: null;
+        } catch(e:Dynamic) null;
     }
 
     public var r(get,never) : Float;
@@ -30,6 +46,9 @@ abstract RGBXA(Array<Float>) {
 
     public function inSpace() : Bool
         return r >= 0 && r <= 1 && g >= 0 && g <= 1 && b >= 0 && b <= 1 && a >= 0 && a <= 1;
+
+    public inline function toCSS3() : String
+        return toString();
 
     @:to public inline function toHSLA() : HSLA
         return toRGBX().toHSL().withAlpha( a );
