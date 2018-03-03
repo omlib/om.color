@@ -1,0 +1,12 @@
+GIMP Palette
+Name: mozilla-firefox-marketplace.gpl
+Columns: 1
+#
+230	96	0	orange
+255	149	0	light_orange
+0	83	159	blue
+0	149	221	light_blue
+234	239	242	gradient-1.1
+212	221	228	gradient-1.2
+106	123	134	gradient-2.1
+66	79	90	gradient-2.2
