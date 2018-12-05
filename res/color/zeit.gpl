@@ -1,0 +1,16 @@
+GIMP Palette
+Name: zeit.gpl
+Columns: 1
+#
+0	0	0	primary_black
+255	255	255	primary_white
+0	118	255	secondary_blue
+255	0	128	secondary_magenta
+245	166	35	secondary_orange
+248	231	28	secondary_yellow
+80	227	194	secondary_green
+250	250	250	accent_1
+234	234	234	accent_2
+153	153	153	accent_3
+102	102	102	accent_4
+51	51	51	accent_5
