@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "description": "Color tools",
     "tags": ["om","color","rgb","hsl","hsv"],
-    "url": "https://github.com/tong/om.color",
+    "url": "https://github.com/omlib/om.color",
     "license": "OM",
     "contributors": ["tong"],
     "releasenote": "See CHANGELOG.md",
