@@ -54,28 +54,20 @@ class GimpPalette {
 
 		var palette = new GimpPalette( name, Std.parseInt( _columns ) );
 
-		//TODO
-		regx = ~/^ *([0-9][0-9]?[0-9]?)\s+([0-9][0-9]?[0-9]?)\s+([0-9][0-9]?[0-9]?)(\s+(.+))*$/i;
+		regx = ~/^([0-9][0-9]?[0-9]?)\s+([0-9][0-9]?[0-9]?)\s+([0-9][0-9]?[0-9]?)(.*)$/i;
 
 		for( i in 4...lines.length-1 ) {
-			var line = lines[i];
+			var line = lines[i].trim();
 			if( line.length == 0 )
 				continue;
-			var commentIndex = line.indexOf( '#' );
-			if( commentIndex != -1 )
-				line = line.substr( commentIndex );
-			if( line.length == 0 )
-				continue;
-			if( regx.match( line ) ) {
-				palette.colors.push({
-					r: Std.parseInt( regx.matched(1) ),
-					g: Std.parseInt( regx.matched(2) ),
-					b: Std.parseInt( regx.matched(3) ),
-					name: (regx.matched(4) == null) ? null : regx.matched(5)
-				});
-			} else {
-				trace("TODO "+line);
-			}
+			if( !regx.match( line ) )
+				return throw new InvalidFormat( 'gpl' );
+			palette.colors.push({
+				r: Std.parseInt( regx.matched(1) ),
+				g: Std.parseInt( regx.matched(2) ),
+				b: Std.parseInt( regx.matched(3) ),
+				name: regx.matched(4).trim()
+			});
 		}
 
 		return palette;
